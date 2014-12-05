@@ -228,6 +228,8 @@ int my_tcp_bind(char *port){
         return -1;
     }
 
+    close(sockfd);
+
     return sockfd_accepted;
 }
 
