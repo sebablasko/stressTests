@@ -40,7 +40,8 @@ llamadaHilo(int socket_fd){
 	int paquetesParaAtender = MAX_PACKS/NTHREADS;
 
 	for(i = 0; i < paquetesParaAtender; i++) {
-		lectura = recv(socket_fd, buf, BUF_SIZE, 0);
+		//lectura = recv(socket_fd, buf, BUF_SIZE, 0);
+		lectura = read(socket_fd, buf, BUF_SIZE);
 		if(lectura <= 0) {
 			fprintf(stderr, "Error en el read del socket (%d)\n", lectura);
 			exit(1);
