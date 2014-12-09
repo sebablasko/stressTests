@@ -52,7 +52,7 @@ int udp_bind(char *port){
     sockfd = udp_socket(NULL, port, &addr);
 
     if(bind(sockfd, (struct sockaddr*) &addr, sizeof(addr)) < 0){
-        fprintf(stderr, "socket error:: No se pudo hacer bind\n");
+        fprintf(stderr, "socket error:: No se pudo hacer bind. Error: %s\n", strerror(errno));
         close(sockfd);
         return -1;
     }
@@ -68,7 +68,7 @@ int udp_connect(char *server, char *port){
     sockfd = udp_socket(server, port, &addr);
 
     if(connect(sockfd, (struct sockaddr*) &addr, sizeof(addr)) < 0) {
-        fprintf(stderr, "socket error:: No se pudo hacer connect\n");
+        fprintf(stderr, "socket error:: No se pudo hacer connect. Error: %s\n", strerror(errno));
         close(sockfd);
         return -1;
     }
@@ -102,7 +102,7 @@ int tcp_bind(char *port){
     int from_len = sizeof(from);
     sockfd_accepted = accept(sockfd, (struct sockaddr*) &from, &from_len);
     if (from_len<0){
-        fprintf(stderr, "socket error:: Error de accept\n");
+        fprintf(stderr, "socket error:: No se pudo hacer Accept. Error: %s\n", strerror(errno));
         close(sockfd);
         return -1;
     }
@@ -120,7 +120,7 @@ int tcp_connect(char *server, char *port){
     sockfd = tcp_socket(server, port, &addr);
 
     if(connect(sockfd, (struct sockaddr*) &addr, sizeof(addr)) < 0) {
-        fprintf(stderr, "TCP socket error:: No se pudo hacer connect. Error: %s\n", strerror(errno));
+        fprintf(stderr, "socket error:: Falla el connect. Error: %s\n", strerror(errno));
         close(sockfd);
         return -1;
     }
@@ -133,22 +133,65 @@ int tcp_connect(char *server, char *port){
 
 
 /*	 UNIX Sockets 	*/
-int my_unix_bind(char *namePathFile){
+int unix_socket(int type, char *namePathFile, struct sockaddr_un *addr){
+	int sockfd;
+	memset(addr, 0, sizeof(*addr));
+
+	//Crear Socket
+	sockfd = socket(AF_UNIX, type, 0);
+	if(sockfd < 0){
+        fprintf(stderr, "socket error:: No se pudo crear el socket\n");
+        return -1;
+    }
+
+    //Set Parametros
+    (*addr).sun_family = AF_UNIX;
+    strncpy((*addr).sun_path, namePathFile, sizeof((*addr).sun_path)-1);
+
+    return sockfd;
+
+}
+
+int unix_udp_bind(char *namePathFile){
+	return unix_bind(SOCK_DGRAM, namePathFile);
+}
+
+int unix_udp_connect(char *namePathFile){
+	return unix_connect(SOCK_DGRAM, namePathFile);
+}
+
+int unix_bind(int type, char *namePathFile){
 	int sockfd;
 	struct sockaddr_un addr;
 
-	memset(&addr, 0, sizeof(addr));
+	unlink(namePathFile);
 
 	//crear Socket
-	sockfd = socket(AF_UNIX, SOCK_DGRAM, 0); //TODO: USAR A UDP O TCP
-
-	//Set Parameters
-	addr.sun_family = AF_UNIX;
-	strncpy(addr.sun_path, namePathFile, sizeof(addr.sun_path)-1);
+	sockfd = unix_socket(type, namePathFile, &addr);
 
 
     if(bind(sockfd, (struct sockaddr*) &addr, sizeof(addr)) < 0){
-        fprintf(stderr, "socket error:: No se pudo hacer bind\n");
+        fprintf(stderr, "socket error:: No se pudo hacer bind. Error: %s\n", strerror(errno));
+        close(sockfd);
+        return -1;
+    }
+
+    if(type == SOCK_STREAM)
+    	printf("PENDIENTE Accept\n"); //TODO: PENDIENTE ACCEPT y listen y eso
+
+    return sockfd;
+
+}
+
+int unix_connect(int type, char *namePathFile){
+	int sockfd;
+	struct sockaddr_un addr;
+
+	//crear Socket
+	sockfd = unix_socket(type, namePathFile, &addr);
+
+    if(connect(sockfd, (struct sockaddr*) &addr, sizeof(addr)) < 0) {
+        fprintf(stderr, "socket error:: No se pudo hacer connect. Error: %s\n", strerror(errno));
         close(sockfd);
         return -1;
     }
