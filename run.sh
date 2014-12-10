@@ -26,11 +26,11 @@ echo "Done\n"
 
 echo "Iniciando pruebas..."
 echo "DEV"
-
+./DEV/run.sh 4 1 2
 echo "FIFO"
-./FIFO/run.sh
+./FIFO/run.sh 4 1 2
 echo "UDP"
-
+./UDP/run.sh 4 1 2 3 4
 echo "TCP"
 
 echo "UNIX"
