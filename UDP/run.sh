@@ -13,6 +13,7 @@ echo "Compilando..."
 make all
 echo "Done"
 
+#mkdir perf
 #La Prueba UDP requiere diferencias NTHREADS de NSOCKETS
 echo "Ejecutando Prueba..."
 for num_threads in $threads
@@ -32,7 +33,7 @@ do
 		wait $pid2
 		linea="$linea$(cat aux)"
 		rm aux
-		#output_perf_file=$res_dir"/"$num_threads"perf_"$i".txt"
+		#output_perf_file=$res_dir"/perf/"$num_threads"perf_"$i".txt"
 		#sudo perf report >> $output_perf_file
 	}
 	output_csv_file=$res_dir"/UDP_times.csv"
