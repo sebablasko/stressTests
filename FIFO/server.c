@@ -44,7 +44,7 @@ llamadaHilo(int pipe_fd){
 main(int argc, char **argv){
 
 	if(argc < 2){
-		fprintf(stderr, "Syntax Error: Esperado: ./dev_null NTHREADS\n");
+		fprintf(stderr, "Syntax Error: Esperado: ./server NTHREADS\n");
 		exit(1);
 	}
 

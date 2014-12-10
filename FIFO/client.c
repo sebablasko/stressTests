@@ -33,7 +33,7 @@ main(int argc, char **argv) {
 	int fifo_fd;
 	fifo_fd = open(FIFOPIPENAME, 1);
 	if(fifo_fd < 0){
-		fprintf(stderr, "Error al abrir el pipe");
+		fprintf(stderr, "Error al abrir el pipe\n");
 		exit(1);
 	}
 
