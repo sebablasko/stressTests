@@ -25,7 +25,7 @@ llamadaHilo(int dev_fd){
 		//lectura = recv(dev_fd, buf, BUF_SIZE, 0);
 		lectura = read(dev_fd, buf, BUF_SIZE);
 		if(lectura <= 0) {
-			fprintf(stderr, "Error en el read del socket (%d)\n", lectura);
+			fprintf(stderr, "Error en el read del dispositivo (%d)\n", lectura);
 			exit(1);
 		}
 		if(first_pack==0) { 
@@ -44,7 +44,7 @@ llamadaHilo(int dev_fd){
 main(int argc, char **argv){
 
 	if(argc < 2){
-		fprintf(stderr, "Syntax Error: Esperado: ./dev_null NTHREADS\n");
+		fprintf(stderr, "Syntax Error: Esperado: ./dev_urandom NTHREADS\n");
 		exit(1);
 	}
 
