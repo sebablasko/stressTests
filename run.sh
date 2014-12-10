@@ -2,10 +2,6 @@
 res_dir=RESULTS
 cpu_info_file=CPUData.txt
 
-echo "Crear Directorio para Resultados..."
-mkdir $res_dir
-echo "Done\n"
-
 echo "Guardar datos del Equipo..."
 cpu_file=$res_dir"/"cpu_info_file
 echo "Datos Kernel:" > $cpu_file
