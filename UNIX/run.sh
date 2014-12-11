@@ -6,10 +6,6 @@ repetitions=$1
 shift 1
 threads=$@
 
-echo "Creando archivo FIFO pipe..."
-mkfifo test_pipe
-echo "Done"
-
 echo "Compilando..."
 make all
 echo "Done"
@@ -36,12 +32,8 @@ do
 		#output_perf_file=$res_dir"/perf/"$num_threads"perf_"$i".txt"
 		#sudo perf report >> $output_perf_file
 	}
-	output_csv_file=$res_dir"/FIFO_times.csv"
+	output_csv_file=$res_dir"/UNIX_times.csv"
 	echo "$linea" >> $output_csv_file
 done
 make clean
-echo "Done"
-
-echo "Eliminando FIFO..."
-rm test_pipe
 echo "Done"

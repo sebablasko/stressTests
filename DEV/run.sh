@@ -6,9 +6,6 @@ repetitions=$1
 shift 1
 threads=$@
 
-echo "Prueba DEV"
-cd DEV
-
 echo "Compilando..."
 make all
 echo "Done"
@@ -60,5 +57,3 @@ do
 done
 make clean
 echo "Done"
-
-cd ..
