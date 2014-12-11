@@ -26,7 +26,7 @@ do
 		#./server $num_threads > aux &
 		pid=$!
 		sleep 1
-		./client 1 127.0.0.1 > /dev/null &
+		./client > /dev/null &
 		pid2=$!
 		sleep 1
 		wait $pid
