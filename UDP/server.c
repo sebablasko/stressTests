@@ -103,12 +103,12 @@ int main(int argc, char **argv){
 	for(i=0; i < NTHREADS; i++) 
 		pthread_join(pids[i], NULL);
 
+	//Medir Fin
+	gettimeofday(&dateFin, NULL);
+
 	//Cerrar Sockets
 	for(i=0; i < NSOCKETS; ++i)
 		close(sockets_fd[i]);
-
-	//Medir Fin
-	gettimeofday(&dateFin, NULL);
 
 	segundos=(dateFin.tv_sec*1.0+dateFin.tv_usec/1000000.)-(dateInicio.tv_sec*1.0+dateInicio.tv_usec/1000000.);
 	if(mostrarInfo){
