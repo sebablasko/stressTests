@@ -10,7 +10,7 @@ echo "Compilando..."
 make all
 echo "Done"
 
-#mkdir perf
+mkdir perf
 echo "Ejecutando Prueba DEV_NULL..."
 for num_threads in $threads
 do
@@ -18,18 +18,19 @@ do
 	linea="$num_threads,";
 	for ((i=1 ; $i<=$repetitions ; i++))
 	{
-		#perf record ./num_threads $num_threads > aux &
-		./dev_null $num_threads > aux &
+		perf record ./dev_null $num_threads > aux &
+		#./dev_null $num_threads > aux &
 		pid=$!
 		sleep 1
 		wait $pid
 		linea="$linea$(cat aux)"
 		rm aux
-		#output_perf_file=$res_dir"/perf/"$num_threads"perf_"$i".txt"
-		#sudo perf report >> $output_perf_file
+		output_perf_file="perf/{"$num_threads"}perf_"$i".txt"
+		perf report > $output_perf_file
+		rm perf.*
 	}
 	output_csv_file=$res_dir"/DEV_NULL_times.csv"
-	echo "$linea" >> $output_csv_file
+	echo "$linea" > $output_csv_file
 done
 make clean
 echo "Done"
