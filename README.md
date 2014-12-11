@@ -5,8 +5,6 @@ Pool de pruebas de performance en acceso a estructuras compartidas en escenarios
 
 Se evalúa el acceso concurrente a:
 
--Sockets TCP
--Sockets UDP
--Sockets Unix
--FIFO
--Dispositivos Virtuales
+- [PDF](http://krambook.espozito.com/krambook.pdf)
+- [HTML](http://krambook.espozito.com/)
+- [SVG](http://svgkrambook.espozito.com/)
