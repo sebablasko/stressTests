@@ -5,7 +5,12 @@ Pool de pruebas de performance en acceso a estructuras compartidas en escenarios
 
 Se evalúa el acceso concurrente a:
 
-- Hola
-- [PDF](http://krambook.espozito.com/krambook.pdf)
-- [HTML](http://krambook.espozito.com/)
-- [SVG](http://svgkrambook.espozito.com/)
+- Dispositivos Virtuales
+-- DEV_NULL
+-- DEV_URANDOM
+- FIFO
+- UNIX Sockets
+-- UDP
+- Internet Sockets
+-- TCP
+-- UDP
