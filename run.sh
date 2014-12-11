@@ -18,37 +18,44 @@ echo "" >> $cpu_file
 echo "Datos Memoria Ram" >> $cpu_file
 free -t -m >> $cpu_file
 echo "" >> $cpu_file
-echo "Done\n"
+echo "Done"
 
 
+echo ""
 echo "Iniciando pruebas..."
 
+echo ""
 echo "Prueba DEV_NULL"
 cd DEV_NULL
-./run.sh 5 1 2 3 4 5
+./run.sh 2 1 2 3
 cd ..
 
+echo ""
 echo "Prueba DEV_URANDOM"
 cd DEV_URANDOM
-./run.sh 5 1 2 3 4 5
+./run.sh 2 1 2 3
 cd ..
 
+echo ""
 echo "Prueba FIFO"
 cd FIFO
-./run.sh 5 1 2 3 4 5
+./run.sh 2 1 2 3
 cd ..
 
-echo "Prueba UDP"
-cd UDP
-./run.sh 5 1 2 3 4 5
-cd ..
-
+echo ""
 echo "Prueba TCP"
 cd TCP
-./run.sh 5 1 2 3 4 5
+./run.sh 2 1 2 3
 cd ..
 
+echo ""
 echo "Prueba UNIX"
 cd UNIX
-./run.sh 5 1 2 3 4 5
+./run.sh 2 1 2 3
+cd ..
+
+echo ""
+echo "Prueba UDP"
+cd UDP
+./run.sh 2 1 2 3
 cd ..
