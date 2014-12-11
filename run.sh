@@ -23,27 +23,32 @@ echo "Done\n"
 
 echo "Iniciando pruebas..."
 
-echo "Prueba DEV"
-cd DEV
-./DEV/run.sh 5 1 2 3 4 5
+echo "Prueba DEV_NULL"
+cd DEV_NULL
+./run.sh 5 1 2 3 4 5
+cd ..
+
+echo "Prueba DEV_URANDOM"
+cd DEV_URANDOM
+./run.sh 5 1 2 3 4 5
 cd ..
 
 echo "Prueba FIFO"
 cd FIFO
-./FIFO/run.sh 5 1 2 3 4 5
+./run.sh 5 1 2 3 4 5
 cd ..
 
 echo "Prueba UDP"
 cd UDP
-./UDP/run.sh 5 1 2 3 4 5
+./run.sh 5 1 2 3 4 5
 cd ..
 
 echo "Prueba TCP"
 cd TCP
-./TCP/run.sh 5 1 2 3 4 5
+./run.sh 5 1 2 3 4 5
 cd ..
 
 echo "Prueba UNIX"
 cd UNIX
-./UNIX/run.sh 5 1 2 3 4 5
+./run.sh 5 1 2 3 4 5
 cd ..
