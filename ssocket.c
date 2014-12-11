@@ -84,7 +84,7 @@ int tcp_socket(char *server, char *port, struct sockaddr_in *addr){
     return internet_socket(SOCK_STREAM, server, port, addr);
 }
 
-int tcp_bind(char *port){
+int tcp_bind_accept(char *port){
     int sockfd, sockfd_accepted;
     struct sockaddr_in addr, from;
 
