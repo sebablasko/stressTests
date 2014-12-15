@@ -25,9 +25,10 @@ do
 		wait $pid
 		linea="$linea$(cat aux)"
 		rm aux
+		perf_file="perf/{"$num_threads"}perf_"$i".data"
 		output_perf_file="perf/{"$num_threads"}perf_"$i".txt"
 		perf report > $output_perf_file
-		rm perf.*
+		mv perf.data $perf_file
 	}
 	output_csv_file=$res_dir"/DEV_NULL_times.csv"
 	echo "$linea" >> $output_csv_file
