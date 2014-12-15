@@ -46,7 +46,7 @@ for thread in threads_probados:
 salida = open("perfTests.csv", "w+")
 for spin_function in sorted(spinlocks):
 	salida.write(spin_function + "\n")
-	for t in spinlocks[spin_function]:
+	for t in sorted(spinlocks[spin_function]):
 		salida.write(str(t) + ",")
 		for valor in spinlocks[spin_function][t]:
 			salida.write(str(valor) + ",")
