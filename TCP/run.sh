@@ -34,7 +34,7 @@ do
 		rm perf.*
 	}
 	output_csv_file=$res_dir"/TCP_times.csv"
-	echo "$linea" > $output_csv_file
+	echo "$linea" >> $output_csv_file
 done
 make clean
 echo "Done"

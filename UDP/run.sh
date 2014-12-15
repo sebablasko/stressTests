@@ -35,7 +35,7 @@ do
 		rm perf.*
 	}
 	output_csv_file=$res_dir"/UDP_times.csv"
-	echo "$linea" > $output_csv_file
+	echo "$linea" >> $output_csv_file
 done
 make clean
 echo "Done"
