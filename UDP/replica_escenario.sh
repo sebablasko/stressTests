@@ -25,5 +25,5 @@ do
 		}
 		linea="$linea;"
 	done
-	echo "$linea" >> cosa.csv
+	echo "$linea" >> server_client_relation.csv
 done

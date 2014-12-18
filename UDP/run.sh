@@ -19,21 +19,27 @@ do
 	linea="$num_threads,";
 	for ((i=1 ; $i<=$repetitions ; i++))
 	{
-		perf record ./server $num_threads 1 > aux &
-		#./server $num_threads 1 > aux &
+		#perf record ./server $num_threads 1 > aux &
+		./server $num_threads 1 > aux &
 		pid=$!
 		sleep 1
 		./client 1 127.0.0.1 > /dev/null &
 		pid2=$!
+		./client 1 127.0.0.1 > /dev/null &
+		pid3=$!
+		./client 1 127.0.0.1 > /dev/null &
+		pid4=$!
 		sleep 1
 		wait $pid
 		wait $pid2
+		wait $pid3
+		wait $pid4
 		linea="$linea$(cat aux)"
 		rm aux
 		perf_file="perf/{"$num_threads"}perf_"$i".data"
 		output_perf_file="perf/{"$num_threads"}perf_"$i".txt"
-		perf report > $output_perf_file
-		mv perf.data $perf_file
+		#perf report > $output_perf_file
+		#mv perf.data $perf_file
 	}
 	output_csv_file=$res_dir"/UDP_times.csv"
 	echo "$linea" >> $output_csv_file

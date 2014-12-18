@@ -25,55 +25,55 @@ echo "Done"
 echo ""
 echo "Iniciando pruebas..."
 
-echo ""
-echo "Prueba DEV_NULL"
-cd DEV_NULL
-./run.sh 50 1 2 4 8 16 32 64 128 256 512
-echo "postprocessing..."
-python ../post_processing_perf.py
-mv perfTests.csv ../RESULTS/perfTestsDEV_NULL.csv
-echo "Done!"
-cd ..
+# echo ""
+# echo "Prueba DEV_NULL"
+# cd DEV_NULL
+# ./run.sh 50 1 2 4 8 16 32 64 128 256 512
+# echo "postprocessing..."
+# python ../post_processing_perf.py
+# mv perfTests.csv ../RESULTS/perfTestsDEV_NULL.csv
+# echo "Done!"
+# cd ..
 
-echo ""
-echo "Prueba DEV_URANDOM"
-cd DEV_URANDOM
-./run.sh 50 1 2 4 8 16 32 64 128 256 512
-echo "postprocessing..."
-python ../post_processing_perf.py
-mv perfTests.csv ../RESULTS/perfTestsDEV_URANDOM.csv
-echo "Done!"
-cd ..
+# echo ""
+# echo "Prueba DEV_URANDOM"
+# cd DEV_URANDOM
+# ./run.sh 50 1 2 4 8 16 32 64 128 256 512
+# echo "postprocessing..."
+# python ../post_processing_perf.py
+# mv perfTests.csv ../RESULTS/perfTestsDEV_URANDOM.csv
+# echo "Done!"
+# cd ..
 
-echo ""
-echo "Prueba FIFO"
-cd FIFO
-./run.sh 50 1 2 4 8 16 32 64 128 256 512
-echo "postprocessing..."
-python ../post_processing_perf.py
-mv perfTests.csv ../RESULTS/perfTestsFIFO.csv
-echo "Done!"
-cd ..
+# echo ""
+# echo "Prueba FIFO"
+# cd FIFO
+# ./run.sh 50 1 2 4 8 16 32 64 128 256 512
+# echo "postprocessing..."
+# python ../post_processing_perf.py
+# mv perfTests.csv ../RESULTS/perfTestsFIFO.csv
+# echo "Done!"
+# cd ..
 
-echo ""
-echo "Prueba TCP"
-cd TCP
-./run.sh 50 1 2 4 8 16 32 64 128 256 512
-echo "postprocessing..."
-python ../post_processing_perf.py
-mv perfTests.csv ../RESULTS/perfTestsTCP.csv
-echo "Done!"
-cd ..
+# echo ""
+# echo "Prueba TCP"
+# cd TCP
+# ./run.sh 50 1 2 4 8 16 32 64 128 256 512
+# echo "postprocessing..."
+# python ../post_processing_perf.py
+# mv perfTests.csv ../RESULTS/perfTestsTCP.csv
+# echo "Done!"
+# cd ..
 
-echo ""
-echo "Prueba UNIX"
-cd UNIX
-./run.sh 50 1 2 4 8 16 32 64 128 256 512
-echo "postprocessing..."
-python ../post_processing_perf.py
-mv perfTests.csv ../RESULTS/perfTestsUNIX.csv
-echo "Done!"
-cd ..
+# echo ""
+# echo "Prueba UNIX"
+# cd UNIX
+# ./run.sh 50 1 2 4 8 16 32 64 128 256 512
+# echo "postprocessing..."
+# python ../post_processing_perf.py
+# mv perfTests.csv ../RESULTS/perfTestsUNIX.csv
+# echo "Done!"
+# cd ..
 
 echo ""
 echo "Prueba UDP"
