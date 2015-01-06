@@ -1,7 +1,11 @@
-all: server client
+#all: server client
+all: serverProfiling client
 
 server: server.o ../ssocket.o
 	gcc server.o ../ssocket.o -o server -lpthread
+
+serverProfiling: server.o ../ssocket.o
+	gcc server.o ../ssocket.o -o server -lpthread -fno-omit-frame-pointer -ggdb
 
 rm_server:
 	rm server server.o
