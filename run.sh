@@ -80,8 +80,8 @@ echo "Prueba UDP"
 cd UDP
 ./run.sh 50 1 2 4 8 16 32 64 128 256 512
 echo "postprocessing..."
-#python ../post_processing_perf.py
-#mv perfTests.csv ../RESULTS/perfTestsUDP.csv
+python ../post_processing_perf.py
+mv perfTests.csv ../RESULTS/perfTestsUDP.csv
 echo "Done!"
 cd ..
 
