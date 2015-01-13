@@ -29,11 +29,14 @@ do
 		pid3=$!
 		./client 1 127.0.0.1 > /dev/null &
 		pid4=$!
+		./client 1 127.0.0.1 > /dev/null &
+		pid5=$!
 		sleep 1
 		wait $pid
 		wait $pid2
 		wait $pid3
 		wait $pid4
+		wait $pid5
 		linea="$linea$(cat aux)"
 		rm aux
 		perf_file="perf/{"$num_threads"}perf_"$i".data"
