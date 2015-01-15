@@ -17,7 +17,7 @@ El servidor:
 #define BUF_SIZE 10
 #define MAX_PACKS 1000000
 #define FIRST_PORT 1820
-#define NAMELEN 16
+//#define NAMELEN 16
 
 //Variables
 int first_pack = 0;
@@ -79,9 +79,7 @@ int main(int argc, char **argv){
 	double segundos;
 	char ports[10];
 	int i;
-	char thread_name[NTHREADS][NAMELEN];
-
-
+	//char thread_name[NTHREADS][NAMELEN];
 
 	if(mostrarInfo)	printf("Puertos Activados: \n");
 	for(i = 0; i < NSOCKETS; i++) {
@@ -101,9 +99,9 @@ int main(int argc, char **argv){
 	for(i=0; i < NTHREADS; i++) {
 		int fd = sockets_fd[i%NSOCKETS];
 		pthread_create(&pids[i], NULL, llamadaHilo, fd);
-		char thread_name[NAMELEN];
-		sprintf(thread_name, "serverThread_%d", i);
-		pthread_setname_np(pids[i], thread_name);
+		//char thread_name[NAMELEN];
+		//sprintf(thread_name, "serverThread_%d", i);
+		//pthread_setname_np(pids[i], thread_name);
 	}
 
 	//Esperar Threads
