@@ -45,15 +45,15 @@ echo "Iniciando pruebas..."
 # echo "Done!"
 # cd ..
 
-echo ""
-echo "Prueba FIFO"
-cd FIFO
-./run.sh 5 1 2 4 8 16 32 64 128 256 512
-echo "postprocessing..."
+#echo ""
+#echo "Prueba FIFO"
+#cd FIFO
+#./run.sh 5 1 2 4 8 16 32 64 128 256 512
+#echo "postprocessing..."
 #python ../post_processing_perf.py
-mv perfTests.csv ../RESULTS/perfTestsFIFO.csv
-echo "Done!"
-cd ..
+#mv perfTests.csv ../RESULTS/perfTestsFIFO.csv
+#echo "Done!"
+#cd ..
 
 # echo ""
 # echo "Prueba TCP"
@@ -75,15 +75,15 @@ cd ..
 # echo "Done!"
 # cd ..
 
-# echo ""
-# echo "Prueba UDP"
-# cd UDP
-# ./run.sh 3 1 2 4 8 16 32 64 128 256 512
-# echo "postprocessing..."
-# python ../post_processing_perf.py
-# mv perfTests.csv ../RESULTS/perfTestsUDP.csv
-# echo "Done!"
-# cd ..
+echo ""
+echo "Prueba UDP"
+cd UDP
+./run.sh 50 1 2 4 8 16 32 64 128 256 512
+echo "postprocessing..."
+python ../post_processing_perf.py
+mv perfTests.csv ../RESULTS/perfTestsUDP.csv
+echo "Done!"
+cd ..
 
 END=$(date +%s)
 DIFF=$(( $END - $START ))

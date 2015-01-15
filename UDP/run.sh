@@ -19,7 +19,7 @@ do
 	linea="$num_threads,";
 	for ((i=1 ; $i<=$repetitions ; i++))
 	{
-		perf record ./server $num_threads 1 > aux &
+		perf record -- ./server $num_threads 1 > aux &
 		#./server $num_threads 1 > aux &
 		pid=$!
 		sleep 1
@@ -33,10 +33,10 @@ do
 		pid5=$!
 		sleep 1
 		wait $pid
-		wait $pid2
-		wait $pid3
-		wait $pid4
-		wait $pid5
+		#wait $pid2
+		#wait $pid3
+		#wait $pid4
+		#wait $pid5
 		linea="$linea$(cat aux)"
 		rm aux
 		perf_file="perf/{"$num_threads"}perf_"$i".data"
