@@ -48,7 +48,7 @@ echo "Iniciando pruebas..."
 echo ""
 echo "Prueba FIFO"
 cd FIFO
-./run.sh 50 1 2 4 8 16 32 64 128 256 512
+./run.sh 10 1 2 4 8 16 32 64 128 256 512
 echo "postprocessing..."
 #python ../post_processing_perf.py
 mv perfTests.csv ../RESULTS/perfTestsFIFO.csv
