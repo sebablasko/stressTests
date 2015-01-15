@@ -27,7 +27,10 @@ do
 		pid=$!
 		sleep 1
 		./client > /dev/null &
-		pid2=$!
+		./client > /dev/null &
+		./client > /dev/null &
+		./client > /dev/null &
+		#pid2=$!
 		sleep 1
 		wait $pid
 		wait $pid2
