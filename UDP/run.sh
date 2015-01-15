@@ -11,6 +11,7 @@ make all
 echo "Done"
 
 mkdir perf
+mkdir callgraphs
 #La Prueba UDP requiere diferencias NTHREADS de NSOCKETS
 echo "Ejecutando Prueba..."
 for num_threads in $threads
@@ -42,6 +43,9 @@ do
 		perf_file="perf/{"$num_threads"}perf_"$i".data"
 		output_perf_file="perf/{"$num_threads"}perf_"$i".txt"
 		perf report > $output_perf_file
+
+		callgraph_outputfile="callgraphs/{"$num_threads"}perf_"$i".png"
+		perf script | python ../gprof2dot.py -f perf | dot -Tpng -o $callgraph_outputfile
 		mv perf.data $perf_file
 	}
 	output_csv_file=$res_dir"/UDP_times.csv"
