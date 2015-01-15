@@ -19,7 +19,7 @@ do
 	linea="$num_threads,";
 	for ((i=1 ; $i<=$repetitions ; i++))
 	{
-		perf record -- ./server $num_threads 1 > aux &
+		perf record -g -- ./server $num_threads 1 > aux &
 		#./server $num_threads 1 > aux &
 		pid=$!
 		sleep 1

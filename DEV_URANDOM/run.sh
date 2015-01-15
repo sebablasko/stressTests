@@ -18,7 +18,7 @@ do
 	linea="$num_threads,";
 	for ((i=1 ; $i<=$repetitions ; i++))
 	{
-		perf record ./dev_urandom $num_threads > aux &
+		perf record -g -- ./dev_urandom $num_threads > aux &
 		#./dev_urandom $num_threads > aux &
 		pid=$!
 		sleep 1
