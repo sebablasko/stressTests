@@ -15,7 +15,7 @@ El servidor:
 
 //Definiciones
 #define BUF_SIZE 10
-#define MAX_PACKS 1000000
+#define MAX_PACKS 10000000
 #define FIRST_PORT 1820
 //#define NAMELEN 16
 

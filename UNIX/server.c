@@ -4,7 +4,7 @@
 
 //Definiciones
 #define BUF_SIZE 10
-#define MAX_PACKS 1000000
+#define MAX_PACKS 10000000
 #define MY_SOCK_PATH "unix_sock"
 
 //Variables
