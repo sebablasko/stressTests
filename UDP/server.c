@@ -3,29 +3,18 @@
 #include <stdlib.h>
 #include "../ssocket.h"
 
-/*
-El servidor:
---Datos:
-	-Se reciben MAX_PACKS paquetes de BUF_SIZE tamaño
---Puertos:
-	-Se habilitan NSOCKETS puertos, cada puerto recibe MAX_PACKS/NSOCKETS paquetes
---Threads:
-	-Se habilitan NTHREADS threads para atender, rescatando en cada Thread MAX_PACKS/(NTHREADS * NSOCKETS) paquetes
-*/
-
 //Definiciones
 #define BUF_SIZE 10
-#define MAX_PACKS 10000000
 #define FIRST_PORT 1820
-//#define NAMELEN 16
 
 //Variables
 int first_pack = 0;
 struct timeval dateInicio, dateFin;
 pthread_mutex_t lock;
 int mostrarInfo = 0;
+int MAX_PACKS = 1;
 int NTHREADS = 1;
-int NSOCKETS = 1;
+double segundos;
 
 //Metodo para Threads
 /*
@@ -63,45 +52,35 @@ llamadaHilo(int socket_fd){
 int main(int argc, char **argv){
 	//Verificar Parametros Entrada
 	if(argc <3){
-		fprintf(stderr,"Syntax Error: Esperado: ./mtServer NTHREADS NSOCKETS\n");
+		fprintf(stderr,"Syntax Error: Esperado: ./server MAX_PACKS NTHREADS\n");
 		exit(1);
 	}
 
-	//Recuperar Valores
-	NTHREADS = atoi(argv[1]);
-	NSOCKETS = atoi(argv[2]);
-	if(mostrarInfo)	printf("Diseño: \t%d: Threads \t%d:Puertos \n", NTHREADS, NSOCKETS);
+	//Recuperar total de paquetes a enviar
+	MAX_PACKS = atoi(argv[1]);
 
-	//Definir Variables
-	int sockets_fd[NSOCKETS];
+	//Recuperar numero de Threads
+	NTHREADS = atoi(argv[2]);
 	pthread_t pids[NTHREADS];
-	int port = FIRST_PORT;
-	double segundos;
-	char ports[10];
-	int i;
-	//char thread_name[NTHREADS][NAMELEN];
 
-	if(mostrarInfo)	printf("Puertos Activados: \n");
-	for(i = 0; i < NSOCKETS; i++) {
-		sprintf(ports, "%d", port+i);
-		if(mostrarInfo)	printf("\t\t %s\n ", ports);
-		sockets_fd[i] = udp_bind(ports);
-		if(sockets_fd[i] < 0) {
-			fprintf(stderr, "Error de bind al tomar el puerto\n");
-			exit(1);
-		}
+	//Crear Socket
+	int socket_fd;
+	int port = FIRST_PORT;
+	char ports[10];
+	sprintf(ports, "%d", port);
+	socket_fd = udp_bind(ports);
+	if(socket_fd < 0) {
+		fprintf(stderr, "Error de bind al tomar el puerto\n");
+		exit(1);
 	}
 
 	pthread_mutex_init(&lock, NULL);
-	if(mostrarInfo)	printf("Usando %d threads, %d sockets, %d packs\n", NTHREADS, NSOCKETS, MAX_PACKS);
+	if(mostrarInfo)	printf("Usando %d threads, %d packs\n", NTHREADS, MAX_PACKS);
 
 	//Lanzar Threads
+	int i;
 	for(i=0; i < NTHREADS; i++) {
-		int fd = sockets_fd[i%NSOCKETS];
-		pthread_create(&pids[i], NULL, llamadaHilo, fd);
-		//char thread_name[NAMELEN];
-		//sprintf(thread_name, "serverThread_%d", i);
-		//pthread_setname_np(pids[i], thread_name);
+		pthread_create(&pids[i], NULL, llamadaHilo, socket_fd);
 	}
 
 	//Esperar Threads
@@ -111,9 +90,8 @@ int main(int argc, char **argv){
 	//Medir Fin
 	gettimeofday(&dateFin, NULL);
 
-	//Cerrar Sockets
-	for(i=0; i < NSOCKETS; ++i)
-		close(sockets_fd[i]);
+	//Cerrar Socket
+	close(socket_fd);
 
 	segundos=(dateFin.tv_sec*1.0+dateFin.tv_usec/1000000.)-(dateInicio.tv_sec*1.0+dateInicio.tv_usec/1000000.);
 	if(mostrarInfo){

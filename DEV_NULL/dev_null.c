@@ -4,7 +4,6 @@
 
 //Definiciones
 #define BUF_SIZE 10
-#define MAX_PACKS 10000000
 #define FIRST_PORT 1820
 
 //Variables
@@ -12,6 +11,7 @@ int first_pack = 0;
 struct timeval dateInicio, dateFin;
 pthread_mutex_t lock;
 int mostrarInfo = 0;
+int MAX_PACKS = 1;
 int NTHREADS = 1;
 double segundos;
 
@@ -43,13 +43,16 @@ llamadaHilo(int dev_fd){
 
 main(int argc, char **argv){
 
-	if(argc < 2){
-		fprintf(stderr, "Syntax Error: Esperado: ./dev_null NTHREADS\n");
+	if(argc < 3){
+		fprintf(stderr, "Syntax Error: Esperado: ./dev_null MAX_PACKS NTHREADS\n");
 		exit(1);
 	}
 
+	//Recuperar total de paquetes a enviar
+	MAX_PACKS = atoi(argv[1]);
+
 	//Recuperar numero de Threads
-	NTHREADS = atoi(argv[1]);
+	NTHREADS = atoi(argv[2]);
 	pthread_t pids[NTHREADS];
 
 	pthread_mutex_init(&lock, NULL);

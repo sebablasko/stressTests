@@ -3,29 +3,29 @@
 #include <stdlib.h>
 #include <pthread.h>
 
-/*
-El cliente:
---Datos:
-	-Envia una cantidad DATA de datos, esta cantidad supera a la que espera recibir el servidor
---Threads:
-	-Se envia información a través de P Threads, y se envían DATA/P datos por Thread
-*/
-
 //Definiciones
 #define BUF_SIZE 10
-#define MAX_PACKS 1000000
 #define FIFOPIPENAME "test_pipe"
 
 //Variables
 struct timeval dateInicio, dateFin;
 char buf[BUF_SIZE];
 int mostrarInfo = 0;
+int MAX_PACKS = 1;
 double segundos;
 
 main(int argc, char **argv) {
-	int i;
+
+	if(argc < 2){
+		fprintf(stderr, "Syntax Error: Esperado: ./client MAX_PACKS\n");
+		exit(1);
+	}
+
+	//Recuperar total de paquetes a enviar
+	MAX_PACKS = atoi(argv[1]);
 
 	/* Llenar de datos el buffer a enviar */
+	int i;
 	for(i = 0; i < BUF_SIZE; i++)
 		buf[i]='a'+i;
 
@@ -38,7 +38,7 @@ main(int argc, char **argv) {
 	}
 
 	//Medir Fin
-	gettimeofday(&dateFin, NULL);
+	gettimeofday(&dateInicio, NULL);
 
 	for(i = 0; i < MAX_PACKS; i++){
 		if(write(fifo_fd, buf, BUF_SIZE) != BUF_SIZE) {
