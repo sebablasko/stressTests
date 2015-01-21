@@ -24,10 +24,10 @@ do
 		#./server $num_threads > aux &
 		pid=$!
 		sleep 1
-		./client > /dev/null &
-		./client > /dev/null &
-		./client > /dev/null &
-		./client > /dev/null &
+		./client $packages > /dev/null &
+		./client $packages > /dev/null &
+		./client $packages > /dev/null &
+		./client $packages > /dev/null &
 		pid2=$!
 		sleep 1
 		wait $pid
