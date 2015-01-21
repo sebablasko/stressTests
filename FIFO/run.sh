@@ -2,6 +2,8 @@
 #Se requiere la variable res_dir
 res_dir=../RESULTS
 #Recuperar parametros
+packages=$1
+shift 1
 repetitions=$1
 shift 1
 threads=$@
@@ -15,7 +17,6 @@ make all
 echo "Done"
 
 mkdir perf
-mkdir callgraphs
 echo "Ejecutando Prueba..."
 for num_threads in $threads
 do
@@ -23,14 +24,14 @@ do
 	linea="$num_threads,";
 	for ((i=1 ; $i<=$repetitions ; i++))
 	{
-		perf record -g -- ./server $num_threads > aux &
+		perf record -- ./server $packages $num_threads > aux &
 		#./server $num_threads > aux &
 		pid=$!
 		sleep 1
-		./client > /dev/null &
-		./client > /dev/null &
-		./client > /dev/null &
-		./client > /dev/null &
+		./client $packages > /dev/null &
+		./client $packages > /dev/null &
+		./client $packages > /dev/null &
+		./client $packages > /dev/null &
 		#pid2=$!
 		sleep 1
 		wait $pid
@@ -40,9 +41,6 @@ do
 		perf_file="perf/{"$num_threads"}perf_"$i".data"
 		output_perf_file="perf/{"$num_threads"}perf_"$i".txt"
 		perf report > $output_perf_file
-		
-		callgraph_outputfile="callgraphs/{"$num_threads"}perf_"$i".png"
-		perf script | python ../gprof2dot.py -f perf | dot -Tpng -o $callgraph_outputfile
 		mv perf.data $perf_file
 	}
 	output_csv_file=$res_dir"/FIFO_times.csv"
