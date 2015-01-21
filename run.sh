@@ -28,42 +28,42 @@ echo "Iniciando pruebas..."
 echo ""
 echo "Prueba UDP"
 cd UDP
-./run.sh 10000000 5 1 2 4 8 16 32 64 128
+./run.sh 10000000 10 1 2 4 8 16 32 64 128 256
 echo "Done!"
 cd ..
 
 echo ""
 echo "Prueba UNIX"
 cd UNIX
-./run.sh 10000000 5 1 2 4 8 16 32 64 128
+./run.sh 10000000 10 1 2 4 8 16 32 64 128 256
 echo "Done!"
 cd ..
 
 echo ""
 echo "Prueba FIFO"
 cd FIFO
-./run.sh 10000000 5 1 2 4 8 16 32 64 128
+./run.sh 10000000 10 1 2 4 8 16 32 64 128 256
 echo "Done!"
 cd ..
 
 echo ""
 echo "Prueba DEV_NULL"
 cd DEV_NULL
-./run.sh 10000000 5 1 2 4 8 16 32 64 128
+./run.sh 10000000 10 1 2 4 8 16 32 64 128 256
 echo "Done!"
 cd ..
 
 echo ""
 echo "Prueba DEV_URANDOM"
 cd DEV_URANDOM
-./run.sh 10000000 5 1 2 4 8 16 32 64 128
+./run.sh 10000000 10 1 2 4 8 16 32 64 128 256
 echo "Done!"
 cd ..
 
 #echo ""
 #echo "Prueba TCP"
 #cd TCP
-#./run.sh 10000000 5 1 2 4 8 16 32 64 128
+#./run.sh 10000000 10 1 2 4 8 16 32 64 128 256
 #echo "postprocessing..."
 #python ../post_processing_perf.py
 #mv perfTests.csv ../RESULTS/perfTestsTCP.csv
