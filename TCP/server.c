@@ -3,17 +3,8 @@
 #include <stdlib.h>
 #include "../ssocket.h"
 
-/*
-El servidor:
---Datos:
-	-Se reciben MAX_PACKS paquetes de BUF_SIZE tamaño
---Threads:
-	-Se habilitan NTHREADS threads para atender, rescatando en cada Thread MAX_PACKS/NTHREADS paquetes
-*/
-
 //Definiciones
 #define BUF_SIZE 10
-#define MAX_PACKS 10000000
 #define FIRST_PORT "1820"
 
 //Variables
@@ -21,6 +12,7 @@ int first_pack = 0;
 struct timeval dateInicio, dateFin;
 pthread_mutex_t lock;
 int mostrarInfo = 0;
+int MAX_PACKS = 1;
 int NTHREADS = 1;
 double segundos;
 
@@ -59,13 +51,16 @@ llamadaHilo(int socket_fd){
 
 int main(int argc, char **argv){
 	//Verificar Parametros Entrada
-	if(argc <2){
-		fprintf(stderr,"Syntax Error: Esperado: ./server NTHREADS\n");
+	if(argc <3){
+		fprintf(stderr,"Syntax Error: Esperado: ./server MAX_PACKS NTHREADS\n");
 		exit(1);
 	}
 
-	//Recuperar Valores
-	NTHREADS = atoi(argv[1]);
+	//Recuperar total de paquetes a enviar
+	MAX_PACKS = atoi(argv[1]);
+
+	//Recuperar numero de Threads
+	NTHREADS = atoi(argv[2]);
 	pthread_t pids[NTHREADS];
 
 	//Crear Socket TCP

@@ -1,16 +1,10 @@
 #include <sys/time.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-/*
-El cliente:
---Datos:
-	-Envia una cantidad DATA de datos, esta cantidad supera a la que espera recibir el servidor
-*/
+#include "../ssocket.h"
 
 //Definiciones
 #define BUF_SIZE 10
-#define MAX_PACKS 10000000
 #define FIRST_PORT "1820"
 
 //Variables
@@ -18,19 +12,25 @@ struct timeval dateInicio, dateFin;
 char buf[BUF_SIZE];
 char* IP_DEST;
 int mostrarInfo = 0;
+int MAX_PACKS = 1;
 double segundos;
 
 main(int argc, char **argv) {
-	if(argc < 1){
-		fprintf(stderr, "Syntax Error: Esperado: ./client IP_DEST\n");
+	if(argc < 3){
+		fprintf(stderr, "Syntax Error: Esperado: ./client MAX_PACKS IP_DEST\n");
 		exit(1);
 	}
-	IP_DEST = argv[1];
+
+	//Recuperar total de paquetes a enviar
+	MAX_PACKS = atoi(argv[1]);
+
+	//Recuperar IP destino
+	IP_DEST = argv[2];
 
 	/* Llenar de datos el buffer a enviar */
 	int i;
 	for(i = 0; i < BUF_SIZE; i++)
-		buf[i]='a'+i;
+		buf[i] = 'a'+i;
 
 	/* Abrir socket */
 	int socket_fd;
@@ -41,7 +41,7 @@ main(int argc, char **argv) {
 	}
 
 	//Medir Fin
-	gettimeofday(&dateFin, NULL);
+	gettimeofday(&dateInicio, NULL);
 
 	for(i = 0; i < MAX_PACKS; i++){
 		if(write(socket_fd, buf, BUF_SIZE) != BUF_SIZE) {
@@ -50,6 +50,8 @@ main(int argc, char **argv) {
 	}
 
 	gettimeofday(&dateFin, NULL);
+
+	close(socket_fd);
 
 	segundos=(dateFin.tv_sec*1.0+dateFin.tv_usec/1000000.)-(dateInicio.tv_sec*1.0+dateInicio.tv_usec/1000000.);
 	if(mostrarInfo){
