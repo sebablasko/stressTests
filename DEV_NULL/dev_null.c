@@ -59,7 +59,7 @@ main(int argc, char **argv){
 
 	/* Abrir dispositivo */
 	int dev_fd;
-	dev_fd = open("/dev/urandom", 0);
+	dev_fd = open("/dev/null", 0);
 	if(dev_fd < 0){
 		fprintf(stderr, "Error al abrir el dispositivo");
 		exit(1);
